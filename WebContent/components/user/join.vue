@@ -6,7 +6,6 @@
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<div class="card-body">
-					
 						<div class="form-group">
 							<label for="user_name">이름</label>
 							<input type="text" id="user_name" v-model="user_name" class="form-control"/>
@@ -54,23 +53,24 @@
 			}
 		},
 		methods : {
+			// 아이디 중복 여부 확인
 			check_user_id_exist : function () {
-
 				var params = new URLSearchParams()
 				params.append("user_id", this.user_id)
 
 				axios.post('server/user/check_user_id.jsp', params).then((res) => {
 					if (res.data.check_result == true) {
-						alert('사용할 수 없는 아이디입니다')
+						alert('이미 사용중인 아이디입니다.')
 						this.user_id = '';
-						$("#user_id").focus();
 						this.check_user_id = false;
+						$("#user_id").focus();
 					} else {
 						this.check_user_id = true
-						alert('사용할 수 있는 아이디 입니다');
+						alert('사용할 수 있는 아이디입니다');
 					}					
 				})
 			},
+			// @keydown 으로 check_user_id true 반환 후 값 변경이 일어날 경우 초기화
 			resetCheckId : function () {
 				this.check_user_id = false
 			},
@@ -118,9 +118,10 @@
 				params.append('user_id', this.user_id)
 				params.append('user_pw', this.user_pw)
 				
-				axios.post('server/user/join_user.jsp', params).then((response) => {
-					if (response.data.result == true) {
+				axios.post('server/user/join_user.jsp', params).then((res) => {
+					if (res.data.result == true) {
 						alert('가입이 완료되었습니다')
+						
 						this.$router.push('/login')
 					}
 				})

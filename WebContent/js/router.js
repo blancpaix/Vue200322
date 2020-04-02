@@ -1,3 +1,4 @@
+// store 을 사용해서 전역적으로 사용할 변수를 지정해놓음. 여기서는 로그인 여부 등을 체크하기 위해 사용
 var store = new Vuex.Store({
 	// state 이름은 정해져있음 모든 Vue.js 어플리케이션에서 접근 가능하다!	
 	state : {
@@ -8,6 +9,7 @@ var store = new Vuex.Store({
 	}
 })
 
+// 페이지 전환 처리 (MVC 썼었던 servlet라고 생각하면 편할듯?)
 var router = new VueRouter({
 	routes : [
 		{
@@ -63,17 +65,20 @@ var router = new VueRouter({
 			beforeEnter(to, from, next) {
 				alert('로그아웃 되었습니다')
 
+				// 전역변수에 변화를 줌
 				store.state.user_login_chk = false;
 				store.state.user_id = '';
 				store.state.user_name = '';
 				store.state.uesr_idx = 0;
 				
+				// 근데 여기 이 세션은... 다 노출이 되더라?? 원래그런거임? 아닐건데?
 				sessionStorage.clear();
 
 				next('/board_main')
 			}
 		}
 	],
+
 	// 스크롤 위치 설정하기
 	scrollBehavior(to, from, savePosition) {
 		return {

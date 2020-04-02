@@ -44,6 +44,6 @@
 	
 	db.close();
 	
+	// 반환하는 형식이 response.data 이런식으로 가네
 %>
-
 <%= root.toJSONString() %>

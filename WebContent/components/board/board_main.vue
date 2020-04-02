@@ -1,6 +1,5 @@
 <template>
 
-<!-- 게시글 리스트 -->
 <div class="container" style="margin-top:100px">
 	<div class="card shadow">
 		<div class="card-body">
@@ -8,10 +7,10 @@
 			<table class="table table-hover" id='board_list'>
 				<thead>
 					<tr>
-						<th class="text-center d-none d-md-table-cell">글번호</th>
-						<th class="w-50">제목</th>
-						<th class="text-center d-none d-md-table-cell">작성자</th>
-						<th class="text-center d-none d-md-table-cell">작성날짜</th>
+						<th class="text-center d-none d-md-table-cell">INDEX</th>
+						<th class="w-50">SUBJECT</th>
+						<th class="text-center d-none d-md-table-cell">WRITER</th>
+						<th class="text-center d-none d-md-table-cell">DATE</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -28,13 +27,13 @@
 			<div class="d-none d-md-block">
 				<ul class="pagination justify-content-center">
 					<li class="page-item">
-						<router-link :to="'/board_main' + $route.params.board_idx + '/' + server_data.pre" class="page-link">이전</router-link>
+						<router-link :to="'/board_main' + $route.params.board_idx + '/' + server_data.pre" class="page-link">PRE</router-link>
 					</li>
 					<li class="page-item" v-for='a1 in temp_list'>
 						<router-link :to="'/board_main/' + $route.params.board_idx + '/' + a1" class="page-link">{{ a1 }}</router-link>
 					</li>
 					<li class="page-item">
-						<router-link :to="'/board_main' + $route.params.board_idx + '/' + server_data.next" class="page-link">다음</router-link>
+						<router-link :to="'/board_main' + $route.params.board_idx + '/' + server_data.next" class="page-link">NEXT</router-link>
 					</li>
 				</ul>
 			</div>
@@ -77,10 +76,9 @@
 		methods : {
 			go_board_read : function(content_idx) {
 				// 라우터 객체 불러와서 사용하는거임 this.$router 를 말하는 거여
-				// this.$router.push('/board_read')
-				alert(content_idx);
+				// alert(content_idx);
 				this.$router.push('/board_read/' + this.$route.params.board_idx + '/' + this.$route.params.page + '/' + content_idx);
-				// 돌아오는것을 방지하는 세팅? 페이지 번호랑.. 게시판 인덱스하고 다 기억하게 하네??
+				// 뒤로가기 할 경우 탐색중이던 페이지 번호랑 기타 등등을 기억해야지??
 			},
 			get_board_data : function () {
 				// jsp 데이터 받아오는 작업

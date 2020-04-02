@@ -43,6 +43,7 @@
 	module.exports = {
 		data : function () {
 			return {
+				// Vue.store에 저장된 변수 접근 (로그인하면서 할당)
 				user_name : this.$store.state.user_name,
 				user_id : this.$store.state.user_id,
 				user_pw : '',
@@ -51,7 +52,6 @@
 		},
 		methods : {
 			check_input : function () {
-				
 				if(this.user_pw.length < 4){
 					alert("비밀번호는 4글자 이상입니다")
 					this.user_pw = ''
@@ -85,6 +85,7 @@
 			}
 		},
 		created () {
+			// 로그인처리가 되지 않고 페이지에 접근한 경우 처
 			if (this.$store.state.user_login_chk == false) {
 				alert('잘못된 접근입니다');
 				this.$router.push('/');

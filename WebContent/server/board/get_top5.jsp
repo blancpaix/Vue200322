@@ -35,8 +35,7 @@
 	
 	root.put("board_info_name", board_info_name);
 	
-	// 게시글 목록을 가져오는 부분
-	// String sql2 = "SELECT CT.CONTENT_IDX, CT.CONTENT_SUBJECT, TO_CHAR(CT.CONTENT_DATE, 'YYYY-MM-DD') AS CONTENT_DATE, UT.USER_NAME FROM CONTENT_TABLE CT, USER_TABLE UT WHERE CONTENT_WRITER_IDX = UT.USER_IDX AND CT.CONTENT_BOARD_IDX=? ORDER BY CT.CONTENT_IDX DESC";
+	// top5 게시글 목록 가져오기
 	String sql2 = "select p2.* from (select rownum as num, p1.* from (SELECT CT.CONTENT_IDX, CT.CONTENT_SUBJECT, TO_CHAR(CT.CONTENT_DATE, 'YYYY-MM-DD') AS CONTENT_DATE, UT.USER_NAME FROM CONTENT_TABLE CT, USER_TABLE UT WHERE CONTENT_WRITER_IDX = UT.USER_IDX AND CT.CONTENT_BOARD_IDX=? ORDER BY CT.CONTENT_IDX DESC) p1) p2 where p2.num >= 1 and p2.num <= 5";
 	
 	PreparedStatement pstmt2 = db.prepareStatement(sql2);
@@ -57,8 +56,12 @@
 	
 	root.put("board_list", board_list);
 	
+	// 그럼 여기서 벌써 쿼리 8번 실행된거네??
+	
 	
 	db.close();
+	
+	// 결과값 반환은 그냥 res.data 이런식으로 들어가는가봐....
 %>
 
 <%= root.toJSONString() %>

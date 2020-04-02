@@ -6,11 +6,12 @@
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<div class="card-body">
-					<div class="alert alert-danger" v-if='is_login_fail == true'>
+
+					<!-- 메서드에서 반환된 값을 가지고 렌더링 -->
+ 					<div class="alert alert-danger" v-if='is_login_fail == true'>
 						<h3>로그인 실패</h3>
 						<p>아이디 비밀번호를 확인해주세요</p>
 					</div>
-					
 						<div class="form-group">
 							<label for="user_id">아이디</label>
 							<input type="text" id="user_id" v-model="user_id" class="form-control"/>
@@ -23,7 +24,6 @@
 							<button type="button" @click='check_input' class="btn btn-primary">로그인</button>
 							<router-link to='/join' class="btn btn-danger">회원가입</router-link>
 						</div>
-					
 				</div>
 			</div>
 		</div>
@@ -36,6 +36,7 @@
 
 <script>
 	module.exports = {
+		// 사용할 데이터 함수 형식으로 생성 및  반환
 		data : function () {
 			return {
 				is_login_fail : false,
@@ -44,14 +45,14 @@
 			}
 		},
 		methods : {
+			// 유효성 검사
 			check_input : function () {
-				// 유효성 검사
 				if(this.user_id.length < 4){
 					alert("아이디는 4글자 이상입니다")
 					this.user_id = ''
-					// 이건 어떻게 처리되는거임?? 뭐임??
 					$("#user_id").focus()
 					
+					// 리턴 false 거나 이런거 상관없이 그냥 함수를 끝내버리는거라 괜찮
 					return
 				}
 				if(this.user_pw.length < 4){
@@ -62,6 +63,7 @@
 					return
 				}
 
+				// id랑 pw 파라미터로 보내면 굉장히 위험 나중에 수정....
 				var params = new URLSearchParams()
 				params.append('user_id', this.user_id)
 				params.append('user_pw', this.user_pw)
